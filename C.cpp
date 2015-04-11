@@ -51,7 +51,43 @@ void output() {
   for (auto i=0; i<L; i++) {
     x = mult(x, c(S[i]));
   }
-  cout << ((multtimes(x, X) == 4) ? "YES" : "NO") << endl;
+  if (multtimes(x, X) != 4) {
+    cout << "NO" << endl;
+  } else { // ijkにスプリットできるかを調べる
+    string SS = "";
+    int times = min(X, (ll)20);
+    for (auto i=0; i<times; i++) {
+      SS += S;
+    }
+    x = 0;
+    // iが作れるか
+    int next = -1;
+    bool ok = false;
+    // i判定
+    for (int i=0; i<(int)SS.size(); i++) {
+      x = mult(x, c(SS[i]));
+      if (x == 1) {
+        next = i+1;
+        break;
+      }
+    }
+    if (next == -1) {
+      cout << "NO" << endl;
+      return;
+    }
+    // j判定
+    x = 0;
+    for (int i=next; i<(int)SS.size(); i++) {
+      x = mult(x, c(SS[i]));
+      if (x == 2) {
+        // cerr << i << endl;
+        next = i+1;
+        ok = true;
+      }
+    }
+    cout << (ok ? "YES" : "NO") << endl;
+    return;
+  }
 }
 
 int main() {
