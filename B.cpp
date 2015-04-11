@@ -14,16 +14,21 @@ void input() {
 }
 
 void output() {
-  sort(P, P+D);
-  reverse(P, P+D);
-  int M = P[0];
-  // cerr << M << endl;
-  int t = 0;
-  while (M > 1) {
-    M = M - M/2;
-    t++;
+  int X[1010];
+  fill(X, X+1010, 0);
+  for (auto i=0; i<D; i++) {
+    X[P[i]]++;
   }
-  cout << t+1 << endl;
+  int ans = 100100100;
+  for (auto i=1; i<=1000; i++) {
+    int tans = 0;
+    for (auto j=1; j<=1000; j++) {
+      tans += (j-1)/i * X[j];
+    }
+    tans += i;
+    ans = min(ans, tans);
+  }
+  cout << ans << endl;
 }
 
 int main() {
